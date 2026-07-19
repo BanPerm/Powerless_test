@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="AreaAttackData" format=3 uid="uid://da4cnm8roda2r"]
+
+[ext_resource type="Script" uid="uid://broamtxrbyqir" path="res://scripts/effects/attack_effect.gd" id="1_kkesv"]
+[ext_resource type="Script" uid="uid://lgmdnwtj2xjf" path="res://scripts/attacks/area_attack_data.gd" id="2_rsrh8"]
+[ext_resource type="Script" uid="uid://0mrq28ymyh6h" path="res://scripts/effects/apply_status_effect.gd" id="2_tiyw6"]
+[ext_resource type="Resource" uid="uid://b50icm44iiqkw" path="res://resources/status_presets/slow_50.tres" id="3_p4rdk"]
+
+[sub_resource type="Resource" id="Resource_kkesv"]
+script = ExtResource("2_tiyw6")
+status = ExtResource("3_p4rdk")
+metadata/_custom_type_script = "uid://0mrq28ymyh6h"
+
+[resource]
+script = ExtResource("2_rsrh8")
+is_ranged = true
+max_cast_range = 5.0
+effects = Array[ExtResource("1_kkesv")]([SubResource("Resource_kkesv")])
+metadata/_custom_type_script = "uid://lgmdnwtj2xjf"

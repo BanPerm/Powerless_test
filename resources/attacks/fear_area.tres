@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="AreaAttackData" format=3 uid="uid://d0wumo30sghes"]
+
+[ext_resource type="Script" uid="uid://broamtxrbyqir" path="res://scripts/effects/attack_effect.gd" id="1_qg7u2"]
+[ext_resource type="Script" uid="uid://0mrq28ymyh6h" path="res://scripts/effects/apply_status_effect.gd" id="2_yyf5s"]
+[ext_resource type="Script" uid="uid://cqfjomjhevr0b" path="res://scripts/status/status_effect.gd" id="3_obkg1"]
+[ext_resource type="Script" uid="uid://lgmdnwtj2xjf" path="res://scripts/attacks/area_attack_data.gd" id="4_pjox1"]
+
+[sub_resource type="Resource" id="Resource_cxy70"]
+script = ExtResource("3_obkg1")
+duration = 4.0
+ai_override = 2
+metadata/_custom_type_script = "uid://cqfjomjhevr0b"
+
+[sub_resource type="Resource" id="Resource_sf5hm"]
+script = ExtResource("2_yyf5s")
+status = SubResource("Resource_cxy70")
+metadata/_custom_type_script = "uid://0mrq28ymyh6h"
+
+[resource]
+script = ExtResource("4_pjox1")
+effects = Array[ExtResource("1_qg7u2")]([SubResource("Resource_sf5hm")])
+metadata/_custom_type_script = "uid://lgmdnwtj2xjf"

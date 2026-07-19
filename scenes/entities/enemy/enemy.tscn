@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://bmjpv3ownnneq"]
+
+[ext_resource type="Script" uid="uid://bvjkxpm2hsjkh" path="res://scenes/entities/enemy/enemy.gd" id="1_lw7nh"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_bpwie"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fqldq"]
+albedo_color = Color(0, 1, 0, 1)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_bpwie"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_t4x1d"]
+radius = 0.53222656
+height = 2.0266113
+
+[node name="Enemy" type="CharacterBody3D" unique_id=1294200572 groups=["enemy"]]
+script = ExtResource("1_lw7nh")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1198943917]
+mesh = SubResource("CapsuleMesh_bpwie")
+surface_material_override/0 = SubResource("StandardMaterial3D_fqldq")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=41040025]
+shape = SubResource("CapsuleShape3D_bpwie")
+debug_color = Color(0.95338124, 3.465414e-06, 0.556342, 0.41960785)
+
+[node name="HurtBox" type="Area3D" parent="." unique_id=1364602760]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HurtBox" unique_id=1634992938]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0008544922, 0)
+shape = SubResource("CapsuleShape3D_t4x1d")
+debug_color = Color(0.67058825, 0.50980395, 0.02745098, 0.64705884)

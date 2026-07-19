@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="MeleeAttackData" format=3 uid="uid://cfmwntyxfqq3e"]
+
+[ext_resource type="Script" uid="uid://broamtxrbyqir" path="res://scripts/effects/attack_effect.gd" id="1_lo7m1"]
+[ext_resource type="Script" uid="uid://cdnkua8g0brbl" path="res://scripts/attacks/melee_attack_data.gd" id="2_7uehx"]
+[ext_resource type="Script" uid="uid://bd1hwle7wsur5" path="res://scripts/effects/knockback_effect.gd" id="2_swclw"]
+
+[sub_resource type="Resource" id="Resource_swclw"]
+script = ExtResource("2_swclw")
+force = 20.0
+metadata/_custom_type_script = "uid://bd1hwle7wsur5"
+
+[resource]
+script = ExtResource("2_7uehx")
+range = 5.0
+angle_degrees = 100.0
+effects = Array[ExtResource("1_lo7m1")]([SubResource("Resource_swclw")])
+metadata/_custom_type_script = "uid://cdnkua8g0brbl"

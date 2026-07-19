@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="RangedAttackData" format=3 uid="uid://byq7otk2h0quw"]
+
+[ext_resource type="Script" uid="uid://broamtxrbyqir" path="res://scripts/effects/attack_effect.gd" id="1_nlp5p"]
+[ext_resource type="Script" uid="uid://dfvmlldisn6q" path="res://scripts/attacks/ranged_attack_data.gd" id="2_7y373"]
+[ext_resource type="Script" uid="uid://bd1hwle7wsur5" path="res://scripts/effects/knockback_effect.gd" id="2_47osc"]
+[ext_resource type="PackedScene" uid="uid://dhtnohxyscw7w" path="res://scenes/entities/projectile.tscn" id="2_bv54w"]
+
+[sub_resource type="Resource" id="Resource_k6f0d"]
+script = ExtResource("2_47osc")
+force = 5.0
+metadata/_custom_type_script = "uid://bd1hwle7wsur5"
+
+[resource]
+script = ExtResource("2_7y373")
+projectile_scene = ExtResource("2_bv54w")
+max_range = 3.0
+effects = Array[ExtResource("1_nlp5p")]([SubResource("Resource_k6f0d")])
+metadata/_custom_type_script = "uid://dfvmlldisn6q"

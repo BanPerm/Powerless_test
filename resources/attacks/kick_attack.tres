@@ -1,0 +1,32 @@
+[gd_resource type="Resource" script_class="MeleeAttackData" format=3 uid="uid://d3y4aegv17jei"]
+
+[ext_resource type="Script" uid="uid://broamtxrbyqir" path="res://scripts/effects/attack_effect.gd" id="1_cln6t"]
+[ext_resource type="Script" uid="uid://dwwjvq71ghm84" path="res://scripts/effects/teleport_effect.gd" id="2_k6f0d"]
+[ext_resource type="Script" uid="uid://cdnkua8g0brbl" path="res://scripts/attacks/melee_attack_data.gd" id="2_x5p8o"]
+[ext_resource type="Script" uid="uid://dukhvnj0kj72a" path="res://scripts/effects/launch_effect.gd" id="3_quwoe"]
+[ext_resource type="Script" uid="uid://0mrq28ymyh6h" path="res://scripts/effects/apply_status_effect.gd" id="4_27wx1"]
+[ext_resource type="Resource" uid="uid://dkxd6h0brwdht" path="res://resources/status_presets/stun_long.tres" id="5_k6f0d"]
+
+[sub_resource type="Resource" id="Resource_5j1ys"]
+script = ExtResource("2_k6f0d")
+offset_distance = 1.2
+metadata/_custom_type_script = "uid://dwwjvq71ghm84"
+
+[sub_resource type="Resource" id="Resource_a728f"]
+script = ExtResource("3_quwoe")
+strength = 10.0
+metadata/_custom_type_script = "uid://dukhvnj0kj72a"
+
+[sub_resource type="Resource" id="Resource_k6f0d"]
+script = ExtResource("4_27wx1")
+status = ExtResource("5_k6f0d")
+metadata/_custom_type_script = "uid://0mrq28ymyh6h"
+
+[resource]
+script = ExtResource("2_x5p8o")
+range = 6.0
+angle_degrees = 90.0
+single_target = true
+cooldown = 3.0
+effects = Array[ExtResource("1_cln6t")]([SubResource("Resource_5j1ys"), SubResource("Resource_a728f"), SubResource("Resource_k6f0d")])
+metadata/_custom_type_script = "uid://cdnkua8g0brbl"

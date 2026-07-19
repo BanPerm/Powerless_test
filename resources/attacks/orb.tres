@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="SummonAttackData" format=3 uid="uid://c4udwcam2n4me"]
+
+[ext_resource type="Script" uid="uid://broamtxrbyqir" path="res://scripts/effects/attack_effect.gd" id="1_dd2x6"]
+[ext_resource type="Script" uid="uid://bwf8dnb5vbm88" path="res://scripts/effects/pull_effect.gd" id="2_nrlll"]
+[ext_resource type="Script" uid="uid://cmddvgrj8ul1s" path="res://scripts/attacks/summon_attack_data.gd" id="2_u3tvu"]
+
+[sub_resource type="Resource" id="Resource_fu2oi"]
+script = ExtResource("2_nrlll")
+metadata/_custom_type_script = "uid://bwf8dnb5vbm88"
+
+[resource]
+script = ExtResource("2_u3tvu")
+pulse_interval = 0.5
+effects = Array[ExtResource("1_dd2x6")]([SubResource("Resource_fu2oi")])
+metadata/_custom_type_script = "uid://cmddvgrj8ul1s"
