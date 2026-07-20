@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://buxah28kotvf2"]
+
+[ext_resource type="Script" uid="uid://bq8b136qanyx8" path="res://scripts/generation/wall_segment.gd" id="1_xgdyl"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xgdyl"]
+size = Vector3(3, 3, 0.3)
+
+[sub_resource type="BoxMesh" id="BoxMesh_jmgcw"]
+size = Vector3(3, 3, 0.3)
+
+[node name="WallSegment" type="StaticBody3D" unique_id=61235404 groups=["occluder"]]
+script = ExtResource("1_xgdyl")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=238558726]
+shape = SubResource("BoxShape3D_xgdyl")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=873675230]
+mesh = SubResource("BoxMesh_jmgcw")

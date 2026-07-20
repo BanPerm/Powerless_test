@@ -2,7 +2,7 @@ class_name Enemy
 extends Combatant
 
 @export var speed: float = 3.5
-@export var stop_distance: float = 1.2
+@export var stop_distance: float = 0.5
 
 var target: Node3D
 

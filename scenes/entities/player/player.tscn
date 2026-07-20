@@ -10,8 +10,8 @@
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a6664"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_t4x1d"]
-radius = 0.54589844
-height = 2.116455
+radius = 0.6
+height = 2.2
 
 [node name="Player" type="CharacterBody3D" unique_id=1445150297]
 script = ExtResource("1_635qg")
@@ -27,7 +27,6 @@ surface_material_override/0 = SubResource("StandardMaterial3D_a6664")
 [node name="HurtBox" type="Area3D" parent="." unique_id=1307097442]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HurtBox" unique_id=1323203477]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.018676758, 0)
 shape = SubResource("CapsuleShape3D_t4x1d")
 debug_color = Color(0.7293971, 0.23907763, 0.9999998, 0.41960785)
 

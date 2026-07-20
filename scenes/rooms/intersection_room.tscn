@@ -1,0 +1,70 @@
+[gd_scene format=3 uid="uid://yyg704bo0n72"]
+
+[ext_resource type="Script" uid="uid://ce08qonpftcdi" path="res://scripts/generation/room_instance.gd" id="1_75mco"]
+[ext_resource type="PackedScene" uid="uid://tf8v5veoh5la" path="res://scenes/rooms/parts/door_maker_with_plug.tscn" id="1_ivejf"]
+[ext_resource type="PackedScene" uid="uid://buxah28kotvf2" path="res://scenes/rooms/parts/wall_segment.tscn" id="2_75mco"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0l0yn"]
+size = Vector3(10, 0.2, 10)
+
+[sub_resource type="BoxMesh" id="BoxMesh_lsewk"]
+size = Vector3(10, 0.2, 10)
+
+[node name="IntersectionRoom" type="Node3D" unique_id=1625645564]
+script = ExtResource("1_75mco")
+
+[node name="Floor" type="StaticBody3D" parent="." unique_id=158556414]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor" unique_id=1320162040]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
+shape = SubResource("BoxShape3D_0l0yn")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor" unique_id=1703503686]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
+mesh = SubResource("BoxMesh_lsewk")
+
+[node name="Walls" type="Node3D" parent="." unique_id=384118300]
+
+[node name="WallEast" type="Node3D" parent="Walls" unique_id=1658495784]
+
+[node name="Door" parent="Walls/WallEast" unique_id=680158611 instance=ExtResource("1_ivejf")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 5, 1.5, 0)
+
+[node name="WallSegment" parent="Walls/WallEast" unique_id=61235404 instance=ExtResource("2_75mco")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 5, 1.5, -3.5)
+
+[node name="WallSegment2" parent="Walls/WallEast" unique_id=390972388 instance=ExtResource("2_75mco")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 5, 1.5, 3.5)
+
+[node name="WallNorth" type="Node3D" parent="Walls" unique_id=1859087351]
+
+[node name="Door" parent="Walls/WallNorth" unique_id=1242831046 instance=ExtResource("1_ivejf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -5)
+
+[node name="WallSegment" parent="Walls/WallNorth" unique_id=1145618973 instance=ExtResource("2_75mco")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 1.5, -5)
+
+[node name="WallSegment2" parent="Walls/WallNorth" unique_id=767999656 instance=ExtResource("2_75mco")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5, 1.5, -5)
+
+[node name="WallSouth" type="Node3D" parent="Walls" unique_id=1265885104]
+
+[node name="Door" parent="Walls/WallSouth" unique_id=21697464 instance=ExtResource("1_ivejf")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 1.5, 5)
+
+[node name="WallSegment" parent="Walls/WallSouth" unique_id=164730178 instance=ExtResource("2_75mco")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 1.5, 5)
+
+[node name="WallSegment2" parent="Walls/WallSouth" unique_id=482049275 instance=ExtResource("2_75mco")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5, 1.5, 5)
+
+[node name="WallWest" type="Node3D" parent="Walls" unique_id=1137428110]
+
+[node name="Door" parent="Walls/WallWest" unique_id=1566202877 instance=ExtResource("1_ivejf")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -5, 1.5, 0)
+
+[node name="WallSegment" parent="Walls/WallWest" unique_id=1420803741 instance=ExtResource("2_75mco")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -5, 1.5, -3.5)
+
+[node name="WallSegment2" parent="Walls/WallWest" unique_id=1247068749 instance=ExtResource("2_75mco")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -5, 1.5, 3.5)

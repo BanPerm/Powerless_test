@@ -1,47 +1,98 @@
 class_name DungeonGenerator
 extends RefCounted
 
-var placed_rooms: Array[Node3D] = []
+const CELL_SIZE := 16.0  # >= à la plus grande dimension de salle utilisée, marge incluse
+
+var occupied: Dictionary = {}          # Vector2i -> RoomTemplate (layout logique, avant instanciation)
+var placed_rooms: Array[RoomInstance] = []
 
 func generate(templates: Array[RoomTemplate], room_count: int, parent: Node3D) -> void:
-	var current_template = templates.pick_random()
-	var current_room = current_template.scene.instantiate()
-	parent.add_child(current_room)
-	placed_rooms.append(current_room)
+	occupied.clear()
+	placed_rooms.clear()
 
-	for i in range(room_count - 1):
-		var open_socket = _find_open_socket(current_room)
-		if not open_socket:
-			break
+	var start_templates = templates.filter(func(t): return t.category == RoomTemplate.Category.START)
+	var normal_templates = templates.filter(func(t): return t.category == RoomTemplate.Category.NORMAL)
+	var rest_templates = templates.filter(func(t): return t.category == RoomTemplate.Category.REST)
+	var boss_templates = templates.filter(func(t): return t.category == RoomTemplate.Category.BOSS)
 
-		var next_template = templates.pick_random()
-		var next_room = next_template.scene.instantiate()
-		parent.add_child(next_room)
+	# --- Étape 1 : construire le layout logique (juste des données, rien d'instancié) ---
+	var layout: Dictionary = {}  # Vector2i -> RoomTemplate
+	var start_pos := Vector2i.ZERO
+	layout[start_pos] = _pick_weighted(start_templates)
 
-		_align_room_to_socket(next_room, open_socket)
-		open_socket.is_used = true
-		placed_rooms.append(next_room)
-		current_room = next_room
+	var frontier: Array[Vector2i] = [start_pos]
+	var attempts := 0
+	var max_attempts := room_count * 20
 
-func _find_open_socket(room: Node3D) -> RoomSocket:
-	for child in room.get_children():
-		if child is RoomSocket and not child.is_used:
-			return child
-	return null
+	while layout.size() < room_count - 1 and attempts < max_attempts and frontier.size() > 0:
+		attempts += 1
+		var from_pos: Vector2i = frontier[randi() % frontier.size()]
+		var dir = Direction.all().pick_random()
+		var next_pos: Vector2i = from_pos + Direction.VECTOR[dir]
 
-func _align_room_to_socket(new_room: Node3D, target_socket: RoomSocket) -> void:
-	# Trouve le socket d'entrée de la nouvelle salle (le premier disponible, par convention)
-	var entry_socket: RoomSocket = null
-	for child in new_room.get_children():
-		if child is RoomSocket:
-			entry_socket = child
-			break
+		if layout.has(next_pos):
+			continue
 
-	if not entry_socket:
-		return
+		if not frontier.has(next_pos):
+			frontier.append(next_pos)
+		if not _has_free_neighbor(from_pos, layout):
+			frontier.erase(from_pos)
 
-	# Aligne position et rotation pour que les deux sockets coïncident, dos à dos
-	var target_transform = target_socket.global_transform
-	var offset = new_room.global_transform.affine_inverse() * entry_socket.global_transform
-	new_room.global_transform = target_transform * offset.affine_inverse()
-	entry_socket.is_used = true
+	if boss_templates.size() > 0:
+		for from_pos in frontier:
+			var placed := false
+			for dir in Direction.all():
+				var next_pos: Vector2i = from_pos + Direction.VECTOR[dir]
+				if not layout.has(next_pos):
+					layout[next_pos] = _pick_weighted(boss_templates)
+					placed = true
+					break
+			if placed:
+				break
+
+	# --- Étape 2 : instancier le layout validé ---
+	for grid_pos in layout:
+		var instance = _place_room(layout[grid_pos], grid_pos, parent)
+		occupied[grid_pos] = instance
+		placed_rooms.append(instance)
+
+	# --- Étape 3 : marquer les sockets connectés ---
+	for grid_pos in occupied:
+		for dir in Direction.all():
+			var neighbor_pos = grid_pos + Direction.VECTOR[dir]
+			if occupied.has(neighbor_pos):
+				var room: RoomInstance = occupied[grid_pos]
+				var neighbor: RoomInstance = occupied[neighbor_pos]
+				var socket = room.get_socket(dir)
+				var neighbor_socket = neighbor.get_socket(Direction.OPPOSITE[dir])
+				if socket:
+					socket.is_used = true
+				if neighbor_socket:
+					neighbor_socket.is_used = true
+
+	for room in placed_rooms:
+		room.finalize_walls()
+
+func _has_free_neighbor(pos: Vector2i, layout: Dictionary) -> bool:
+	for dir in Direction.all():
+		if not layout.has(pos + Direction.VECTOR[dir]):
+			return true
+	return false
+
+func _pick_weighted(pool: Array) -> RoomTemplate:
+	var total_weight := 0.0
+	for t in pool:
+		total_weight += t.weight
+	var roll := randf() * total_weight
+	for t in pool:
+		roll -= t.weight
+		if roll <= 0:
+			return t
+	return pool[0]
+
+func _place_room(template: RoomTemplate, grid_pos: Vector2i, parent: Node3D) -> RoomInstance:
+	var instance: RoomInstance = template.scene.instantiate()
+	parent.add_child(instance)
+	instance.global_position = Vector3(grid_pos.x * CELL_SIZE, 0, grid_pos.y * CELL_SIZE)
+	instance.initialize()
+	return instance

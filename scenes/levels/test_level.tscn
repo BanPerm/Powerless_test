@@ -1,9 +1,18 @@
 [gd_scene format=3 uid="uid://cdk43eotf4yng"]
 
+[ext_resource type="Script" uid="uid://dpq7fn0r1uyyu" path="res://scripts/test/test_level.gd" id="1_48ne7"]
 [ext_resource type="Script" uid="uid://dcavfb8grso0g" path="res://scripts/camera_3d.gd" id="1_cyt5c"]
 [ext_resource type="Shader" uid="uid://dmc5w03qjy4t2" path="res://assets/shaders/occlusion_fade.gdshader" id="4_2mu0v"]
+[ext_resource type="Script" uid="uid://btyy665gcty3e" path="res://scripts/generation/dungeon_manager.gd" id="6_6xh4u"]
 [ext_resource type="PackedScene" uid="uid://cufod0djlftir" path="res://scenes/entities/player/player.tscn" id="6_eaa0b"]
 [ext_resource type="PackedScene" uid="uid://bmjpv3ownnneq" path="res://scenes/entities/enemy/enemy.tscn" id="7_a5rnb"]
+[ext_resource type="Script" uid="uid://dxt6bfqs03lnr" path="res://scripts/generation/room_template.gd" id="7_fqldq"]
+[ext_resource type="Resource" uid="uid://f0frs71vx6dk" path="res://resources/room_templates/template_basic_room_a.tres" id="8_3ay3b"]
+[ext_resource type="Resource" uid="uid://1fgtn1cnb78t" path="res://resources/room_templates/dead_end_room.tres" id="9_a5rnb"]
+[ext_resource type="Resource" uid="uid://ciw8lgsgrt507" path="res://resources/room_templates/intersect.tres" id="10_fqldq"]
+[ext_resource type="Resource" uid="uid://cg2xikgey62r4" path="res://resources/room_templates/turn_room.tres" id="11_3ay3b"]
+[ext_resource type="Resource" uid="uid://c4nontjr85ncg" path="res://resources/room_templates/template_corridor_1.tres" id="11_v6k17"]
+[ext_resource type="Resource" uid="uid://bvm3y4era8gcf" path="res://resources/room_templates/t_junction_room.tres" id="12_hppjq"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_dug5p"]
 render_priority = 0
@@ -24,6 +33,7 @@ shader_parameter/albedo = Color(1, 1, 1, 1)
 size = Vector3(12.159821, 4, 1.1963501)
 
 [node name="Node3D" type="Node3D" unique_id=1026558812]
+script = ExtResource("1_48ne7")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=423268155]
 transform = Transform3D(0.70524585, -0.3572509, 0.6123724, 0.004534478, 0.8660135, 0.5, -0.70894825, -0.34984615, 0.6123724, -10, 10, 0.453)
@@ -36,17 +46,18 @@ script = ExtResource("1_cyt5c")
 target = NodePath("../Player")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=648493537]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36.174683, 0.567688, -9.034454)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36.175, 10, -9.034)
 use_collision = true
 size = Vector3(37.58789, 0.5858154, 63.86566)
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="." unique_id=1297213442 groups=["occluder"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39.224304, 2.0079558, -20.687859)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39.224, 20, -20.688)
 use_collision = true
 size = Vector3(5.298706, 1, 5.062378)
 material = SubResource("ShaderMaterial_dug5p")
 
 [node name="Wall" type="StaticBody3D" parent="." unique_id=937231010 groups=["occluder"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 20, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Wall" unique_id=1800822070]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.564346, 3.017003, 0.45823485)
@@ -62,3 +73,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26, 2, -22)
 
 [node name="Enemy" parent="." unique_id=1294200572 instance=ExtResource("7_a5rnb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29.09024, 1.8605962, -12.824743)
+
+[node name="DungeonManager" type="Node3D" parent="." unique_id=148796729 node_paths=PackedStringArray("player")]
+script = ExtResource("6_6xh4u")
+start_template = ExtResource("8_3ay3b")
+normal_templates = Array[ExtResource("7_fqldq")]([ExtResource("9_a5rnb"), ExtResource("10_fqldq"), ExtResource("11_3ay3b"), ExtResource("12_hppjq"), ExtResource("11_v6k17"), ExtResource("11_v6k17")])
+room_target = 12
+room_min = 8
+player = NodePath("../Player")

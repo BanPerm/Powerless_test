@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://tf8v5veoh5la"]
+
+[ext_resource type="Script" uid="uid://rir3xopahkij" path="res://scripts/generation/door_marker.gd" id="1_4ouyl"]
+[ext_resource type="Script" uid="uid://bq8b136qanyx8" path="res://scripts/generation/wall_segment.gd" id="2_pyjqc"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4ouyl"]
+size = Vector3(4, 3, 0.3)
+
+[sub_resource type="BoxMesh" id="BoxMesh_pyjqc"]
+size = Vector3(4, 3, 0.3)
+
+[node name="DoorMakerWithPlug" type="Node3D" unique_id=680158611]
+script = ExtResource("1_4ouyl")
+
+[node name="Plug" type="StaticBody3D" parent="." unique_id=1177324113]
+script = ExtResource("2_pyjqc")
+size = Vector3(4, 3, 0.3)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Plug" unique_id=776737557]
+shape = SubResource("BoxShape3D_4ouyl")
+disabled = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Plug" unique_id=1723295346]
+visible = false
+mesh = SubResource("BoxMesh_pyjqc")

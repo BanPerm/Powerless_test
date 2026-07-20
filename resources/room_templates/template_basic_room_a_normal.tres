@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="RoomTemplate" format=3 uid="uid://cvrjy1cnulk43"]
+
+[ext_resource type="Script" uid="uid://dxt6bfqs03lnr" path="res://scripts/generation/room_template.gd" id="1_jq85r"]
+[ext_resource type="PackedScene" uid="uid://csr7b54sabg4g" path="res://scenes/rooms/basic_room_a.tscn" id="1_rldfk"]
+
+[resource]
+script = ExtResource("1_jq85r")
+scene = ExtResource("1_rldfk")
+doors = Array[int]([0, 1])
+metadata/_custom_type_script = "uid://dxt6bfqs03lnr"

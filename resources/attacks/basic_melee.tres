@@ -13,5 +13,6 @@ metadata/_custom_type_script = "uid://bd1hwle7wsur5"
 script = ExtResource("2_7uehx")
 range = 5.0
 angle_degrees = 100.0
+damage = 1
 effects = Array[ExtResource("1_lo7m1")]([SubResource("Resource_swclw")])
 metadata/_custom_type_script = "uid://cdnkua8g0brbl"

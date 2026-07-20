@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="RoomTemplate" format=3 uid="uid://c4nontjr85ncg"]
+
+[ext_resource type="PackedScene" uid="uid://xb7l6iff6ole" path="res://scenes/rooms/corridor_straight.tscn" id="1_cjnfm"]
+[ext_resource type="Script" uid="uid://dxt6bfqs03lnr" path="res://scripts/generation/room_template.gd" id="1_jy8du"]
+
+[resource]
+script = ExtResource("1_jy8du")
+scene = ExtResource("1_cjnfm")
+category = 3
+doors = Array[int]([0, 2])
+footprint = Vector2(6, 10)
+metadata/_custom_type_script = "uid://dxt6bfqs03lnr"

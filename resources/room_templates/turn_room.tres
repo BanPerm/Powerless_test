@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="RoomTemplate" format=3 uid="uid://cg2xikgey62r4"]
+
+[ext_resource type="PackedScene" uid="uid://jwbqanhog1yo" path="res://scenes/rooms/turn_room.tscn" id="1_lh1ie"]
+[ext_resource type="Script" uid="uid://dxt6bfqs03lnr" path="res://scripts/generation/room_template.gd" id="1_m58hf"]
+
+[resource]
+script = ExtResource("1_m58hf")
+scene = ExtResource("1_lh1ie")
+metadata/_custom_type_script = "uid://dxt6bfqs03lnr"

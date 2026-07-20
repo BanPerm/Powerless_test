@@ -62,7 +62,7 @@ func equip_attack(slot_index: int, attack: AttackData) -> void:
 		attack_slots[slot_index].attack = attack
 
 func _on_hurtbox_body_entered(body: Node) -> void:
-	if body.is_in_group("enemy"):
+	if body.is_in_group(GameConstants.GROUP_ENEMY):
 		bodies_in_hurtbox.append(body)
 
 func _on_hurtbox_body_exited(body: Node) -> void:
@@ -128,6 +128,7 @@ func _handle_movement(delta: float) -> void:
 			velocity.z = move_toward(velocity.z, 0, current_speed)
 
 func _handle_contact_damage() -> void:
+	bodies_in_hurtbox = bodies_in_hurtbox.filter(func(b): return is_instance_valid(b))
 	if not is_invincible and bodies_in_hurtbox.size() > 0:
 		take_damage(10, bodies_in_hurtbox[0].global_position)
 
