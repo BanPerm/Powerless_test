@@ -6,6 +6,7 @@ extends Node3D
 @export var room_target: int = 8
 @export var room_min: int = 5
 @export var player: Node3D
+@export var nav_region: NavigationRegion3D
 
 var layout_generator := DungeonLayoutGenerator.new()
 
@@ -22,6 +23,14 @@ func generate_dungeon() -> void:
 		_build_room(room_data)
 
 	_spawn_player_in_start_room()
+	await get_tree().physics_frame
+	await get_tree().physics_frame
+	await _bake_navigation()
+	
+	
+func _bake_navigation() -> void:
+	if nav_region:
+		nav_region.bake_navigation_mesh()
 
 func _build_room(room_data: DungeonLayoutGenerator.PlacedRoomData) -> void:
 	var instance: RoomInstance = room_data.template.scene.instantiate()

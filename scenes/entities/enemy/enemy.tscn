@@ -30,3 +30,9 @@ debug_color = Color(0.95338124, 3.465414e-06, 0.556342, 0.41960785)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0008544922, 0)
 shape = SubResource("CapsuleShape3D_t4x1d")
 debug_color = Color(0.67058825, 0.50980395, 0.02745098, 0.64705884)
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=726773631]
+path_desired_distance = 0.1
+target_desired_distance = 5.0
+path_height_offset = -0.8
+path_max_distance = 5.01

@@ -14,6 +14,7 @@ size = Vector3(6, 0.2, 10)
 script = ExtResource("1_cao02")
 
 [node name="Floor" type="StaticBody3D" parent="." unique_id=2041374662]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor" unique_id=1996061563]
 shape = SubResource("BoxShape3D_bpwie")

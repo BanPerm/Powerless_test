@@ -2,10 +2,8 @@
 
 [ext_resource type="Script" uid="uid://dpq7fn0r1uyyu" path="res://scripts/test/test_level.gd" id="1_48ne7"]
 [ext_resource type="Script" uid="uid://dcavfb8grso0g" path="res://scripts/camera_3d.gd" id="1_cyt5c"]
-[ext_resource type="Shader" uid="uid://dmc5w03qjy4t2" path="res://assets/shaders/occlusion_fade.gdshader" id="4_2mu0v"]
 [ext_resource type="Script" uid="uid://btyy665gcty3e" path="res://scripts/generation/dungeon_manager.gd" id="6_6xh4u"]
 [ext_resource type="PackedScene" uid="uid://cufod0djlftir" path="res://scenes/entities/player/player.tscn" id="6_eaa0b"]
-[ext_resource type="PackedScene" uid="uid://bmjpv3ownnneq" path="res://scenes/entities/enemy/enemy.tscn" id="7_a5rnb"]
 [ext_resource type="Script" uid="uid://dxt6bfqs03lnr" path="res://scripts/generation/room_template.gd" id="7_fqldq"]
 [ext_resource type="Resource" uid="uid://f0frs71vx6dk" path="res://resources/room_templates/template_basic_room_a.tres" id="8_3ay3b"]
 [ext_resource type="Resource" uid="uid://1fgtn1cnb78t" path="res://resources/room_templates/dead_end_room.tres" id="9_a5rnb"]
@@ -13,24 +11,10 @@
 [ext_resource type="Resource" uid="uid://cg2xikgey62r4" path="res://resources/room_templates/turn_room.tres" id="11_3ay3b"]
 [ext_resource type="Resource" uid="uid://c4nontjr85ncg" path="res://resources/room_templates/template_corridor_1.tres" id="11_v6k17"]
 [ext_resource type="Resource" uid="uid://bvm3y4era8gcf" path="res://resources/room_templates/t_junction_room.tres" id="12_hppjq"]
+[ext_resource type="Resource" uid="uid://xnfmdqdm2ny7" path="res://resources/room_templates/new/turn_2.tres" id="14_fqldq"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_dug5p"]
-render_priority = 0
-shader = ExtResource("4_2mu0v")
-shader_parameter/alpha = 1.0
-shader_parameter/albedo = Color(1, 1, 1, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_bpwie"]
-size = Vector3(12.181152, 4.11084, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_oqwcg"]
-render_priority = 0
-shader = ExtResource("4_2mu0v")
-shader_parameter/alpha = 1.0
-shader_parameter/albedo = Color(1, 1, 1, 1)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_5t4e2"]
-size = Vector3(12.159821, 4, 1.1963501)
+[sub_resource type="NavigationMesh" id="NavigationMesh_bpwie"]
+geometry_parsed_geometry_type = 1
 
 [node name="Node3D" type="Node3D" unique_id=1026558812]
 script = ExtResource("1_48ne7")
@@ -45,39 +29,19 @@ size = 10.0
 script = ExtResource("1_cyt5c")
 target = NodePath("../Player")
 
-[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=648493537]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36.175, 10, -9.034)
-use_collision = true
-size = Vector3(37.58789, 0.5858154, 63.86566)
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="." unique_id=1297213442 groups=["occluder"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39.224, 20, -20.688)
-use_collision = true
-size = Vector3(5.298706, 1, 5.062378)
-material = SubResource("ShaderMaterial_dug5p")
-
-[node name="Wall" type="StaticBody3D" parent="." unique_id=937231010 groups=["occluder"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 20, 0)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Wall" unique_id=1800822070]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.564346, 3.017003, 0.45823485)
-mesh = SubResource("BoxMesh_bpwie")
-surface_material_override/0 = SubResource("ShaderMaterial_oqwcg")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall" unique_id=1201090822]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.575901, 3.094123, 0.5134163)
-shape = SubResource("BoxShape3D_5t4e2")
-
 [node name="Player" parent="." unique_id=1445150297 instance=ExtResource("6_eaa0b")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26, 2, -22)
 
-[node name="Enemy" parent="." unique_id=1294200572 instance=ExtResource("7_a5rnb")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29.09024, 1.8605962, -12.824743)
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=700511909]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39.224, 20, -20.688)
+navigation_mesh = SubResource("NavigationMesh_bpwie")
 
-[node name="DungeonManager" type="Node3D" parent="." unique_id=148796729 node_paths=PackedStringArray("player")]
+[node name="DungeonManager" type="Node3D" parent="NavigationRegion3D" unique_id=780983983 node_paths=PackedStringArray("player", "nav_region")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 39.224, -20, 20.688)
 script = ExtResource("6_6xh4u")
 start_template = ExtResource("8_3ay3b")
-normal_templates = Array[ExtResource("7_fqldq")]([ExtResource("9_a5rnb"), ExtResource("10_fqldq"), ExtResource("11_3ay3b"), ExtResource("12_hppjq"), ExtResource("11_v6k17"), ExtResource("11_v6k17")])
+normal_templates = Array[ExtResource("7_fqldq")]([ExtResource("9_a5rnb"), ExtResource("10_fqldq"), ExtResource("11_3ay3b"), ExtResource("12_hppjq"), ExtResource("11_v6k17"), ExtResource("11_v6k17"), ExtResource("14_fqldq")])
 room_target = 12
 room_min = 8
-player = NodePath("../Player")
+player = NodePath("../../Player")
+nav_region = NodePath("..")
