@@ -19,6 +19,9 @@ config/icon="res://icon.svg"
 
 GameConstants="*uid://8mynq7v45vyh"
 ObjectPool="*uid://b71lsyn2pwgrp"
+PerfOverlay="*uid://dofy5k6ul0lnd"
+AttackDatabase="*uid://d0e2huvtplud7"
+AttackNotificationUI="*uid://dnyf8p5r6exqb"
 
 [display]
 
@@ -30,6 +33,7 @@ window/stretch/aspect="expand"
 
 occluder=""
 enemy=""
+nav_source=""
 
 [input]
 

@@ -3,7 +3,7 @@ extends Node3D
 
 var radius: float = 5.0
 var pulse_interval: float = 2.0
-var target_group: String = "enemy"
+var target_group: String = GameConstants.GROUP_ENEMY
 
 var effects: Array[AttackEffect] = []
 var caster: Node3D

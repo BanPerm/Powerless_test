@@ -11,10 +11,19 @@
 [ext_resource type="Resource" uid="uid://cg2xikgey62r4" path="res://resources/room_templates/turn_room.tres" id="11_3ay3b"]
 [ext_resource type="Resource" uid="uid://c4nontjr85ncg" path="res://resources/room_templates/template_corridor_1.tres" id="11_v6k17"]
 [ext_resource type="Resource" uid="uid://bvm3y4era8gcf" path="res://resources/room_templates/t_junction_room.tres" id="12_hppjq"]
+[ext_resource type="PackedScene" uid="uid://buxah28kotvf2" path="res://scenes/rooms/parts/wall_segment.tscn" id="13_3ay3b"]
+[ext_resource type="PackedScene" uid="uid://8243y6hbmww6" path="res://scenes/ui/HUD.tscn" id="13_a5rnb"]
+[ext_resource type="Script" uid="uid://b2n3pthwxf6ak" path="res://scripts/ui/hud.gd" id="14_3ay3b"]
 [ext_resource type="Resource" uid="uid://xnfmdqdm2ny7" path="res://resources/room_templates/new/turn_2.tres" id="14_fqldq"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_bpwie"]
 geometry_parsed_geometry_type = 1
+geometry_source_geometry_mode = 2
+geometry_source_group_name = &"nav_source"
+cell_size = 0.4
+region_merge_size = 40.0
+detail_sample_distance = 10.0
+detail_sample_max_error = 1.5
 
 [node name="Node3D" type="Node3D" unique_id=1026558812]
 script = ExtResource("1_48ne7")
@@ -41,7 +50,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 39.224, -20, 20.688)
 script = ExtResource("6_6xh4u")
 start_template = ExtResource("8_3ay3b")
 normal_templates = Array[ExtResource("7_fqldq")]([ExtResource("9_a5rnb"), ExtResource("10_fqldq"), ExtResource("11_3ay3b"), ExtResource("12_hppjq"), ExtResource("11_v6k17"), ExtResource("11_v6k17"), ExtResource("14_fqldq")])
-room_target = 12
-room_min = 8
+room_target = 50
+room_min = 48
 player = NodePath("../../Player")
 nav_region = NodePath("..")
+wall_segment_scene = ExtResource("13_3ay3b")
+
+[node name="Hud" parent="." unique_id=470046088 node_paths=PackedStringArray("player", "dungeon_manager") instance=ExtResource("13_a5rnb")]
+script = ExtResource("14_3ay3b")
+player = NodePath("../Player")
+dungeon_manager = NodePath("../NavigationRegion3D/DungeonManager")

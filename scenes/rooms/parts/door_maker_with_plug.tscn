@@ -2,12 +2,19 @@
 
 [ext_resource type="Script" uid="uid://rir3xopahkij" path="res://scripts/generation/door_marker.gd" id="1_4ouyl"]
 [ext_resource type="Script" uid="uid://bq8b136qanyx8" path="res://scripts/generation/wall_segment.gd" id="2_pyjqc"]
+[ext_resource type="Shader" uid="uid://dmc5w03qjy4t2" path="res://assets/shaders/occlusion_fade.gdshader" id="3_pyjqc"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4ouyl"]
 size = Vector3(4, 3, 0.3)
 
 [sub_resource type="BoxMesh" id="BoxMesh_pyjqc"]
 size = Vector3(4, 3, 0.3)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_uile7"]
+render_priority = 0
+shader = ExtResource("3_pyjqc")
+shader_parameter/alpha = 1.0
+shader_parameter/albedo = Color(1, 1, 1, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_iyo5i"]
 size = Vector3(4, 0.1, 2)
@@ -18,7 +25,8 @@ size = Vector3(4, 0.1, 2)
 [node name="DoorMakerWithPlug" type="Node3D" unique_id=680158611]
 script = ExtResource("1_4ouyl")
 
-[node name="Plug" type="StaticBody3D" parent="." unique_id=1177324113]
+[node name="Plug" type="StaticBody3D" parent="." unique_id=1177324113 groups=["nav_source"]]
+visible = false
 script = ExtResource("2_pyjqc")
 size = Vector3(4, 3, 0.3)
 
@@ -29,8 +37,9 @@ disabled = true
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Plug" unique_id=1723295346]
 visible = false
 mesh = SubResource("BoxMesh_pyjqc")
+surface_material_override/0 = SubResource("ShaderMaterial_uile7")
 
-[node name="Threshold" type="StaticBody3D" parent="." unique_id=1937497018]
+[node name="Threshold" type="StaticBody3D" parent="." unique_id=1937497018 groups=["nav_source"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.45, 0)
 visible = false
 

@@ -8,6 +8,7 @@ extends AttackData
 func _init() -> void:
 	input_mode = InputMode.CHARGE_AND_RELEASE
 	indicator_type = IndicatorType.CIRCLE
+	icon_type = IconType.AREA
 
 func execute(caster: Node3D, _aim_direction: Vector3, aim_point: Vector3) -> void:
 	var center := caster.global_position
@@ -18,8 +19,13 @@ func execute(caster: Node3D, _aim_direction: Vector3, aim_point: Vector3) -> voi
 			to_point = to_point.normalized() * max_cast_range
 		center = caster.global_position + to_point
 
-	for enemy in caster.get_tree().get_nodes_in_group("enemy"):
+	for enemy in caster.get_tree().get_nodes_in_group(GameConstants.GROUP_ENEMY):
 		if center.distance_to(enemy.global_position) <= radius:
 			if enemy.has_method("take_damage"):
 				enemy.take_damage(damage, center)
 			_apply_effects(enemy, caster)
+			
+func get_stat_lines() -> Array[String]:
+	var lines := super.get_stat_lines()
+	lines.append("Rayon: %.1fm" % radius)
+	return lines

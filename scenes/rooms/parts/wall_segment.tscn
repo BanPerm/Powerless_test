@@ -1,18 +1,26 @@
 [gd_scene format=3 uid="uid://buxah28kotvf2"]
 
 [ext_resource type="Script" uid="uid://bq8b136qanyx8" path="res://scripts/generation/wall_segment.gd" id="1_xgdyl"]
+[ext_resource type="Shader" uid="uid://dmc5w03qjy4t2" path="res://assets/shaders/occlusion_fade.gdshader" id="2_jmgcw"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_xgdyl"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_jmgcw"]
 size = Vector3(3, 3, 0.3)
 
-[sub_resource type="BoxMesh" id="BoxMesh_jmgcw"]
+[sub_resource type="BoxMesh" id="BoxMesh_koe2d"]
 size = Vector3(3, 3, 0.3)
 
-[node name="WallSegment" type="StaticBody3D" unique_id=61235404 groups=["occluder"]]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ob7al"]
+render_priority = 0
+shader = ExtResource("2_jmgcw")
+shader_parameter/alpha = 1.0
+shader_parameter/albedo = Color(1, 1, 1, 1)
+
+[node name="WallSegment" type="StaticBody3D" unique_id=61235404 groups=["nav_source"]]
 script = ExtResource("1_xgdyl")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=238558726]
-shape = SubResource("BoxShape3D_xgdyl")
+shape = SubResource("BoxShape3D_jmgcw")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=873675230]
-mesh = SubResource("BoxMesh_jmgcw")
+mesh = SubResource("BoxMesh_koe2d")
+surface_material_override/0 = SubResource("ShaderMaterial_ob7al")

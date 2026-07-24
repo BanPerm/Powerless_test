@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://lnd6jkvlag2y"]
+
+[ext_resource type="Script" uid="uid://nesgrfjsr22s" path="res://scripts/pickups/attack_altar.gd" id="1_3snem"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_bpwie"]
+radius = 1.5
+
+[sub_resource type="SphereMesh" id="SphereMesh_bpwie"]
+radius = 1.5
+height = 3.0
+
+[node name="AltarAttack" type="Area3D" unique_id=1310743832]
+script = ExtResource("1_3snem")
+choice_count = null
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=862674173]
+shape = SubResource("SphereShape3D_bpwie")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=983512539]
+mesh = SubResource("SphereMesh_bpwie")

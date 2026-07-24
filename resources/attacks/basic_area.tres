@@ -14,5 +14,7 @@ metadata/_custom_type_script = "uid://0mrq28ymyh6h"
 script = ExtResource("2_rsrh8")
 is_ranged = true
 max_cast_range = 5.0
+attack_name = "Zone de la mort"
+description = "Cette attaque est bien trop forte"
 effects = Array[ExtResource("1_kkesv")]([SubResource("Resource_kkesv")])
 metadata/_custom_type_script = "uid://lgmdnwtj2xjf"

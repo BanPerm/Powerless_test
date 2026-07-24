@@ -36,3 +36,4 @@ path_desired_distance = 0.1
 target_desired_distance = 5.0
 path_height_offset = -0.8
 path_max_distance = 5.01
+debug_enabled = true

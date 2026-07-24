@@ -4,12 +4,14 @@
 [ext_resource type="Script" uid="uid://bwf8dnb5vbm88" path="res://scripts/effects/pull_effect.gd" id="2_nrlll"]
 [ext_resource type="Script" uid="uid://cmddvgrj8ul1s" path="res://scripts/attacks/summon_attack_data.gd" id="2_u3tvu"]
 
-[sub_resource type="Resource" id="Resource_fu2oi"]
+[sub_resource type="Resource" id="Resource_fwvg5"]
 script = ExtResource("2_nrlll")
 metadata/_custom_type_script = "uid://bwf8dnb5vbm88"
 
 [resource]
 script = ExtResource("2_u3tvu")
 pulse_interval = 0.5
-effects = Array[ExtResource("1_dd2x6")]([SubResource("Resource_fu2oi")])
+attack_name = "Orb de la malice"
+description = "Attire tout enemy dans sa zone d'action"
+effects = Array[ExtResource("1_dd2x6")]([SubResource("Resource_fwvg5")])
 metadata/_custom_type_script = "uid://cmddvgrj8ul1s"

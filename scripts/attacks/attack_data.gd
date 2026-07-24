@@ -3,8 +3,11 @@ extends Resource
 
 enum InputMode { INSTANT, CHARGE_AND_RELEASE }
 enum IndicatorType { NONE, LINE, CIRCLE }
+enum IconType { MELEE, RANGED, AREA, SUMMON, UTILITY }
 
 @export var attack_name: String = "Attaque"
+@export_multiline var description: String = ""
+@export var icon_type: IconType = IconType.MELEE
 @export var damage: int = 10
 @export var cooldown: float = 0.5
 @export var effects: Array[AttackEffect] = []
@@ -19,3 +22,9 @@ func execute(caster: Node3D, aim_direction: Vector3, aim_point: Vector3) -> void
 func _apply_effects(target: Node3D, caster: Node3D) -> void:
 	for effect in effects:
 		effect.apply(target, caster)
+
+func get_stat_lines() -> Array[String]:
+	var lines: Array[String] = []
+	lines.append("Dégâts: %d" % damage)
+	lines.append("Cooldown: %.1fs" % cooldown)
+	return lines

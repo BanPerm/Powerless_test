@@ -6,7 +6,5 @@
 [resource]
 script = ExtResource("1_jy8du")
 scene = ExtResource("1_cjnfm")
-category = 3
-doors = Array[int]([0, 2])
 footprint = Vector2(6, 10)
 metadata/_custom_type_script = "uid://dxt6bfqs03lnr"

@@ -8,6 +8,7 @@ extends AttackData
 func _init() -> void:
 	input_mode = InputMode.CHARGE_AND_RELEASE
 	indicator_type = IndicatorType.LINE
+	icon_type = IconType.RANGED
 
 func execute(caster: Node3D, aim_direction: Vector3, _aim_point: Vector3) -> void:
 	var projectile = ObjectPool.get_object(projectile_scene)
@@ -15,3 +16,9 @@ func execute(caster: Node3D, aim_direction: Vector3, _aim_point: Vector3) -> voi
 	caster.get_tree().current_scene.add_child.call_deferred(projectile)
 	projectile.call_deferred("look_at_from_position", pos, pos + aim_direction, Vector3.UP)
 	projectile.call_deferred("setup", aim_direction, projectile_speed, damage, effects, caster, projectile_scene)
+	
+func get_stat_lines() -> Array[String]:
+	var lines := super.get_stat_lines()
+	lines.append("Portée max: %.1fm" % max_range)
+	lines.append("Vitesse: %.1f" % projectile_speed)
+	return lines

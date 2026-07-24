@@ -13,7 +13,7 @@ func execute(caster: Node3D, aim_direction: Vector3, _aim_point: Vector3) -> voi
 	_spawn_slash_vfx(caster, aim_direction)
 
 	var hit_targets: Array = []
-	for enemy:CharacterBody3D in caster.get_tree().get_nodes_in_group("enemy"):
+	for enemy:CharacterBody3D in caster.get_tree().get_nodes_in_group(GameConstants.GROUP_ENEMY):
 		var to_enemy := enemy.global_position - caster.global_position
 		to_enemy.y = 0
 		if to_enemy.length() > range:
@@ -40,3 +40,9 @@ func _spawn_slash_vfx(caster: Node3D, aim_direction: Vector3) -> void:
 	caster.get_tree().current_scene.add_child(slash)
 	slash.look_at_from_position(pos, pos + aim_direction, Vector3.UP)
 	slash.setup(range, angle_degrees)
+	
+func get_stat_lines() -> Array[String]:
+	var lines := super.get_stat_lines()
+	lines.append("Portée: %.1fm" % range)
+	lines.append("Angle: %d°" % angle_degrees)
+	return lines

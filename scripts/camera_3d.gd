@@ -35,7 +35,7 @@ func _physics_process(delta):
 	for off in offsets:
 		query.to = to + off
 		var result = space_state.intersect_ray(query)
-		if result and result.collider.is_in_group("occluder"):
+		if result and result.collider.is_in_group(GameConstants.GROUP_OCCLUDER):
 			currently_hit.append(result.collider)
 	
 	for obj in currently_hit:
@@ -60,10 +60,8 @@ func get_material_for_node(node):
 	
 	# Si c'est une MeshInstance3D (ou une enfant d'un StaticBody3D)
 	# Vérifiez s'il s'agit d'une MeshInstance ou s'il en contient une
-	var mesh_instance = node if node is MeshInstance3D else find_mesh_instance(node)
-	
+	var mesh_instance = node.get_node_or_null("MeshInstance3D") if not node is MeshInstance3D else node
 	if mesh_instance:
-		# Vérifie s'il y a déjà un override
 		var mat = mesh_instance.get_surface_override_material(0)
 		if not mat:
 			var active_mat = mesh_instance.get_active_material(0)
@@ -71,7 +69,6 @@ func get_material_for_node(node):
 				mat = active_mat.duplicate()
 				mesh_instance.set_surface_override_material(0, mat)
 		return mat
-	
 	return null
 	
 func find_mesh_instance(node: Node) -> MeshInstance3D:

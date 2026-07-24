@@ -18,5 +18,7 @@ metadata/_custom_type_script = "uid://0mrq28ymyh6h"
 
 [resource]
 script = ExtResource("4_pjox1")
-effects = Array[ExtResource("1_qg7u2")]([SubResource("Resource_sf5hm")])
+attack_name = "11 septembre"
+description = "craignez ma terreur"
+effects = Array[ExtResource("1_qg7u2")]([SubResource("Resource_sf5hm"), null])
 metadata/_custom_type_script = "uid://lgmdnwtj2xjf"

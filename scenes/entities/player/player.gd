@@ -6,7 +6,7 @@ extends Combatant
 @export var dash_duration: float = 0.15
 @export var dash_cooldown: float = 0.6
 
-@onready var attack_executor: Node = $AttackExecutor
+@onready var attack_executor: AttackExecutor = $AttackExecutor
 @onready var hurtbox: Area3D = $HurtBox
 
 var is_dashing: bool = false
@@ -18,6 +18,8 @@ var bodies_in_hurtbox: Array = []
 
 var aim_line_indicator: GroundLineIndicator
 var area_indicator: GroundAreaIndicator
+
+signal attack_pickup_available(choices: Array[AttackData])
 
 class AttackSlot:
 	var action_name: String
@@ -49,17 +51,15 @@ func _ready() -> void:
 		AttackSlot.new("fear_attack"),
 	]
 
-	# Setup temporaire pour tester — plus tard, remplacé par un tirage aléatoire
-	equip_attack(0, preload("res://resources/attacks/basic_melee.tres"))
-	equip_attack(1, preload("res://resources/attacks/basic_ranged.tres"))
-	equip_attack(2, preload("res://resources/attacks/basic_area.tres"))
-	equip_attack(3, preload("res://resources/attacks/orb.tres"))
-	equip_attack(4, preload("res://resources/attacks/kick_attack.tres"))
-	equip_attack(5, preload("res://resources/attacks/fear_area.tres"))
-
 func equip_attack(slot_index: int, attack: AttackData) -> void:
 	if slot_index < attack_slots.size():
 		attack_slots[slot_index].attack = attack
+		
+func get_empty_slot_index() -> int:
+	for i in range(attack_slots.size()):
+		if not attack_slots[i].attack:
+			return i
+	return -1
 
 func _on_hurtbox_body_entered(body: Node) -> void:
 	if body.is_in_group(GameConstants.GROUP_ENEMY):

@@ -26,10 +26,19 @@ func return_object(obj: Node) -> void:
 	if not _pools.has(key):
 		_pools[key] = []
 
+	if _pools[key].has(obj):
+		return
+
 	obj.visible = false
 	obj.set_physics_process(false)
 	obj.set_process(false)
-	if obj.get_parent():
-		obj.get_parent().remove_child.call_deferred(obj)
+
+	var parent = obj.get_parent()
+	if parent:
+		_deferred_remove.call_deferred(parent, obj)
 
 	_pools[key].append(obj)
+
+func _deferred_remove(parent: Node, obj: Node) -> void:
+	if is_instance_valid(parent) and is_instance_valid(obj) and obj.get_parent() == parent:
+		parent.remove_child(obj)

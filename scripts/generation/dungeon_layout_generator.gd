@@ -122,8 +122,8 @@ func _try_connect(anchor: OpenDoor, normal_templates: Array[RoomTemplate], speci
 				if facing != needed_dir:
 					continue
 
-				var local_pt := _local_door_point(door, template.footprint)
-				var rotated_pt := _rotate_point(local_pt, rot)
+				var local_pt := RoomGeometry.local_door_point(door, template.footprint)
+				var rotated_pt := RoomGeometry.rotate_point(local_pt, rot)
 				var candidate_position: Vector2 = anchor_point - rotated_pt
 				var candidate_rect := _room_rect(template.footprint, candidate_position, rot)
 
@@ -148,24 +148,9 @@ func _try_connect(anchor: OpenDoor, normal_templates: Array[RoomTemplate], speci
 
 	return false
 
-func _local_door_point(door: RoomDoorInfo, footprint: Vector2) -> Vector2:
-	match door.side:
-		Direction.Value.NORTH: return Vector2(door.offset, -footprint.y / 2.0)
-		Direction.Value.SOUTH: return Vector2(door.offset, footprint.y / 2.0)
-		Direction.Value.EAST: return Vector2(footprint.x / 2.0, door.offset)
-		Direction.Value.WEST: return Vector2(-footprint.x / 2.0, door.offset)
-	return Vector2.ZERO
 
 func _world_door_point(room: PlacedRoomData, door: RoomDoorInfo) -> Vector2:
-	var local_pt := _local_door_point(door, room.template.footprint)
-	return room.position + _rotate_point(local_pt, room.rotation_degrees)
-
-func _rotate_point(p: Vector2, degrees: int) -> Vector2:
-	var steps: int = int(degrees / 90) % 4
-	var r := p
-	for i in range(steps):
-		r = Vector2(-r.y, r.x)
-	return r
+	return RoomGeometry.world_door_point(room.position, room.rotation_degrees, room.template, door)
 
 func _room_rect(footprint: Vector2, position: Vector2, rotation_degrees: int) -> Rect2:
 	var fp := footprint
